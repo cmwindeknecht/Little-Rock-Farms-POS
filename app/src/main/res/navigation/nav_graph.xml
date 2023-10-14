@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/MainMenu">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="com.little_rock_farms_pos.FirstFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_first">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="com.little_rock_farms_pos.SecondFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_second">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/MainMenu"
+        android:name="com.little_rock_farms_pos.main_menu.MainMenu"
+        android:label="@string/main_menu_label"
+        tools:layout="@layout/lrf_main_menu">
+
+        <action
+            android:id="@+id/action_MainMenu_to_ManageInventory"
+            app:destination="@id/ManageInventory" />
+        <action
+            android:id="@+id/action_MainMenu_to_CalculatePurchase"
+            app:destination="@id/CalculatePurchase" />
+    </fragment>
+    <fragment
+        android:id="@+id/ManageInventory"
+        android:name="com.little_rock_farms_pos.manage_inventory.ManageInventory"
+        android:label="@string/manage_inventory_label"
+        tools:layout="@layout/lrf_manage_inventory">
+
+        <action
+            android:id="@+id/action_ManageInventory_to_ManageCategories"
+            app:destination="@id/ManageCategories" />
+        <action
+            android:id="@+id/action_ManageInventory_to_ManageProducts"
+            app:destination="@id/ManageProducts" />
+        <action
+            android:id="@+id/action_ManageInventory_to_ManagePrices"
+            app:destination="@id/ManagePrices" />
+        <action
+            android:id="@+id/action_ManageInventory_to_MainMenu"
+            app:destination="@id/MainMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/ManageCategories"
+        android:name="com.little_rock_farms_pos.manage_inventory.ManageCategories"
+        android:label="@string/manage_categories_label"
+        tools:layout="@layout/lrf_manage_categories">
+
+        <action
+            android:id="@+id/action_ManageCategories_to_ManageInventory"
+            app:destination="@id/ManageInventory" />
+    </fragment>
+    <fragment
+        android:id="@+id/ManageProducts"
+        android:name="com.little_rock_farms_pos.manage_inventory.ManageProducts"
+        android:label="@string/manage_products_label"
+        tools:layout="@layout/lrf_manage_products">
+
+        <action
+            android:id="@+id/action_ManageProducts_to_ManageInventory"
+            app:destination="@id/ManageInventory" />
+    </fragment>
+    <fragment
+        android:id="@+id/ManagePrices"
+        android:name="com.little_rock_farms_pos.manage_inventory.ManagePrices"
+        android:label="@string/manage_prices_label"
+        tools:layout="@layout/lrf_manage_prices">
+
+        <action
+            android:id="@+id/action_ManagePrices_to_ManageInventory"
+            app:destination="@id/ManageInventory" />
+    </fragment>
+    <fragment
+        android:id="@+id/CalculatePurchase"
+        android:name="com.little_rock_farms_pos.calculate_purchase.CalculatePurchase"
+        android:label="@string/calculate_purchase_label"
+        tools:layout="@layout/lrf_calculate_purchase">
+
+        <action
+            android:id="@+id/action_CalculatePurchase_to_MainMenu"
+            app:destination="@id/MainMenu" />
+    </fragment>
+</navigation>
