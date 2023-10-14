@@ -32,10 +32,6 @@ class CalculatePurchase : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.buttonCalculatePurchaseToMainMenu.setOnClickListener {
-            findNavController().navigate(R.id.action_CalculatePurchase_to_MainMenu)
-        }
     }
 
     override fun onDestroyView() {

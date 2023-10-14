@@ -32,10 +32,6 @@ class ManagePrices : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.buttonManagePricesToManageInventory.setOnClickListener {
-            findNavController().navigate(R.id.action_ManagePrices_to_ManageInventory)
-        }
     }
 
     override fun onDestroyView() {

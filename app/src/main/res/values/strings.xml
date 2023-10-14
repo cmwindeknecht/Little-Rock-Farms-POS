@@ -18,7 +18,7 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="create">Add</string>
-    <string name="create_update">Add/Update</string>
+    <string name="update">Update</string>
     <string name="go_back">Go Back</string>
 
     <!-- Strings used for main menu -->
