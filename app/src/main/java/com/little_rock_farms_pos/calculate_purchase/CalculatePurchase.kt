@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.little_rock_farms_pos.R
-import com.little_rock_farms_pos.databinding.FragmentFirstBinding
 import com.little_rock_farms_pos.databinding.LrfCalculatePurchaseBinding
 
 /**

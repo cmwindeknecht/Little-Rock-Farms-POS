@@ -6,26 +6,6 @@
     app:startDestination="@id/MainMenu">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.little_rock_farms_pos.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.little_rock_farms_pos.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/MainMenu"
         android:name="com.little_rock_farms_pos.main_menu.MainMenu"
         android:label="@string/main_menu_label"
@@ -59,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/ManageCategories"
-        android:name="com.little_rock_farms_pos.manage_inventory.ManageCategories"
+        android:name="com.little_rock_farms_pos.manage_categories.ManageCategories"
         android:label="@string/manage_categories_label"
         tools:layout="@layout/lrf_manage_categories">
 
@@ -69,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/ManageProducts"
-        android:name="com.little_rock_farms_pos.manage_inventory.ManageProducts"
+        android:name="com.little_rock_farms_pos.manage_products.ManageProducts"
         android:label="@string/manage_products_label"
         tools:layout="@layout/lrf_manage_products">
 
@@ -79,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/ManagePrices"
-        android:name="com.little_rock_farms_pos.manage_inventory.ManagePrices"
+        android:name="com.little_rock_farms_pos.manage_prices.ManagePrices"
         android:label="@string/manage_prices_label"
         tools:layout="@layout/lrf_manage_prices">
 

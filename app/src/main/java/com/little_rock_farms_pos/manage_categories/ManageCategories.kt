@@ -1,4 +1,4 @@
-package com.little_rock_farms_pos.manage_inventory
+package com.little_rock_farms_pos.manage_categories
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,15 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.little_rock_farms_pos.R
-import com.little_rock_farms_pos.databinding.FragmentFirstBinding
-import com.little_rock_farms_pos.databinding.LrfManagePricesBinding
+import com.little_rock_farms_pos.databinding.LrfManageCategoriesBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class ManagePrices : Fragment() {
+class ManageCategories : Fragment() {
 
-    private var _binding: LrfManagePricesBinding? = null
+    private var _binding: LrfManageCategoriesBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,7 +25,7 @@ class ManagePrices : Fragment() {
             savedInstanceState: Bundle?
     ): View {
 
-        _binding = LrfManagePricesBinding.inflate(inflater, container, false)
+        _binding = LrfManageCategoriesBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -34,8 +33,8 @@ class ManagePrices : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonManagePricesToManageInventory.setOnClickListener {
-            findNavController().navigate(R.id.action_ManagePrices_to_ManageInventory)
+        binding.buttonManageCategoriesToManageInventory.setOnClickListener {
+            findNavController().navigate(R.id.action_ManageCategories_to_ManageInventory)
         }
     }
 
