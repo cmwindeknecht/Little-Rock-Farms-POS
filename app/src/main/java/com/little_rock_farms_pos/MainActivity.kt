@@ -9,18 +9,26 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.ViewModelProviders
 import com.little_rock_farms_pos.databinding.ActivityMainBinding
+import com.little_rock_farms_pos.persistence.models.CategoryViewModel
+import com.little_rock_farms_pos.persistence.models.ProductViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var categoryViewModel: CategoryViewModel
+    private lateinit var productViewModel: ProductViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        categoryViewModel = ViewModelProviders.of(this)[CategoryViewModel::class.java]
+        productViewModel = ViewModelProviders.of(this)[ProductViewModel::class.java]
 
         setSupportActionBar(binding.toolbar)
 

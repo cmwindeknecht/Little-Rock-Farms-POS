@@ -1,12 +1,10 @@
 package com.little_rock_farms_pos.manage_categories
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import com.little_rock_farms_pos.R
+import androidx.fragment.app.Fragment
 import com.little_rock_farms_pos.databinding.LrfManageCategoriesBinding
 
 /**
@@ -24,10 +22,8 @@ class ManageCategories : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-
         _binding = LrfManageCategoriesBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,5 +33,9 @@ class ManageCategories : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun addCategoryHandler(target: View?) {
+
     }
 }
