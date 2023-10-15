@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
 import com.little_rock_farms_pos.databinding.ActivityMainBinding
 import com.little_rock_farms_pos.persistence.models.CategoryViewModel
 import com.little_rock_farms_pos.persistence.models.ProductViewModel

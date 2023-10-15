@@ -92,8 +92,12 @@
             android:gravity="center">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/manage_categories_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"
+                tools:itemCount="5"
+                tools:listitem="@layout/lrf_manage_categories_card_view" />
+
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
