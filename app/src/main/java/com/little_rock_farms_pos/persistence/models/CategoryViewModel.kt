@@ -9,19 +9,19 @@ class CategoryViewModel(app: Application) : AndroidViewModel(app) {
 
     private val repository = CategoryRepository(app)
 
-    fun insert(category: Category) {
+    suspend fun insert(category: Category) {
         repository.insert(category)
     }
 
-    fun update(category: Category) {
+    suspend fun update(category: Category) {
         repository.update(category)
     }
 
-    fun delete(category: Category) {
+    suspend fun delete(category: Category) {
         repository.delete(category)
     }
 
-    fun findAll(): List<Category> {
+    suspend fun findAll(): List<Category> {
         return repository.findAll()
     }
 }

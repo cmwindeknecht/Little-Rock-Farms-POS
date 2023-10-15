@@ -9,9 +9,9 @@ import androidx.room.PrimaryKey
 data class Category(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "category_id")
-    val categoryId: Int,
+    val categoryId: Int? = null,
     @ColumnInfo(name = "category_name")
     val categoryName: String,
     @Embedded
-    val product: Product?
+    val product: Product? = null
 )

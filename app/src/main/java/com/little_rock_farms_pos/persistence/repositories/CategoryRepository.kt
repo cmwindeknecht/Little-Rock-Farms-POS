@@ -13,19 +13,19 @@ class CategoryRepository(application: Application) {
         categoryDao = database.categoryDao()
     }
 
-    fun insert(category: Category) {
+    suspend fun insert(category: Category) {
         categoryDao.insert(category)
     }
 
-    fun update(category: Category) {
+    suspend fun update(category: Category) {
         categoryDao.update(category)
     }
 
-    fun delete(category: Category) {
+    suspend fun delete(category: Category) {
         categoryDao.delete(category)
     }
 
-    fun findAll(): List<Category> {
+    suspend fun findAll(): List<Category> {
         return categoryDao.findAll()
     }
 }

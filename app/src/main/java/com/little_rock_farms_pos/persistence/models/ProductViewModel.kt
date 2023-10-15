@@ -11,15 +11,15 @@ class ProductViewModel(app: Application) : AndroidViewModel(app) {
 
     private val repository = ProductRepository(app)
 
-    fun insert(product: Product) {
+    suspend fun insert(product: Product) {
         repository.insert(product)
     }
 
-    fun update(product: Product) {
+    suspend fun update(product: Product) {
         repository.update(product)
     }
 
-    fun delete(product: Product) {
+    suspend fun delete(product: Product) {
         repository.delete(product)
     }
 }
