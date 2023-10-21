@@ -50,8 +50,6 @@ class ManageProducts : Fragment() {
         populateRecyclerView(this.context)
         populateDropDown(this.context)
 
-        lifecycleScope.launch { _productViewModel.deleteAll() }
-
         return binding.root
     }
 
@@ -124,7 +122,7 @@ class ManageProducts : Fragment() {
                     _recyclerAdapter.addItem(ProductCardViewModel(category=categoryName, product = newProduct.productName,  price = String.format("$ %s", price)))
                 }
             } catch (e: Exception) {
-                Log.d("manage_products", "Failed to add product")
+                Log.e("manage_products", "Failed to add product", e)
             }
         }
     }
