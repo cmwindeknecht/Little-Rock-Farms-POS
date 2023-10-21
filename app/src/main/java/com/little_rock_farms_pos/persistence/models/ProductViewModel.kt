@@ -22,4 +22,12 @@ class ProductViewModel(app: Application) : AndroidViewModel(app) {
     suspend fun delete(product: Product) {
         repository.delete(product)
     }
+
+    suspend fun deleteAll() {
+        repository.deletaAll()
+    }
+
+    suspend fun findByCategoryId(categoryId: Int): List<Product> {
+        return repository.findByCategoryId(categoryId)
+    }
 }

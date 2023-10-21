@@ -9,8 +9,7 @@ import com.little_rock_farms_pos.persistence.daos.ProductDao
 import com.little_rock_farms_pos.persistence.entities.Category
 import com.little_rock_farms_pos.persistence.entities.Product
 
-
-@Database(entities = [Product::class, Category::class], version = 1, exportSchema = false)
+@Database(entities = [Category::class, Product::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao
     abstract fun productDao(): ProductDao
@@ -20,7 +19,7 @@ abstract class AppDatabase : RoomDatabase() {
         private var instance: AppDatabase? = null
         @Synchronized
         fun getInstance(ctx: Context): AppDatabase {
-            if(instance == null)
+            if(instance == null) 
                 instance = Room.databaseBuilder(
                     ctx.applicationContext,
                     AppDatabase::class.java,

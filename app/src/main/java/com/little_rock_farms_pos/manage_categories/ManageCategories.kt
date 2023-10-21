@@ -1,6 +1,6 @@
 package com.little_rock_farms_pos.manage_categories
 
-import CustomAdapter
+import ManageCategoriesCustomAdapter
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,18 +23,22 @@ import java.util.stream.Collectors
  */
 class ManageCategories : Fragment() {
 
-    private lateinit var categoryViewModel: CategoryViewModel
     private lateinit var _binding: LrfManageCategoriesBinding
+    private lateinit var _categoryViewModel: CategoryViewModel
     private lateinit var _recyclerView: RecyclerView
-    private lateinit var _recyclerAdapter: CustomAdapter
+    private lateinit var _recyclerAdapter: ManageCategoriesCustomAdapter
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = LrfManageCategoriesBinding.inflate(inflater, container, false)
-        categoryViewModel = ViewModelProviders.of(this)[CategoryViewModel::class.java]
+        _categoryViewModel = ViewModelProviders.of(this)[CategoryViewModel::class.java]
         populateRecyclerView(this.context)
         return binding.root
     }
@@ -49,13 +53,13 @@ class ManageCategories : Fragment() {
 
     private fun populateRecyclerView(context: Context?) {
         lifecycleScope.launch {
-            _recyclerView = _binding.root.findViewById<RecyclerView>(com.little_rock_farms_pos.R.id.manage_categories_recycler_view)
+            _recyclerView = _binding.root.findViewById(com.little_rock_farms_pos.R.id.manage_categories_recycler_view)
             _recyclerView.layoutManager = LinearLayoutManager(context)
 
-            val data = categoryViewModel.findAll().stream().map {
+            val data = _categoryViewModel.findAll().stream().map {
                 CategoryCardViewModel(it.categoryName)
             }.collect(Collectors.toList())
-            val adapter = CustomAdapter(data)
+            val adapter = ManageCategoriesCustomAdapter(data)
             _recyclerAdapter = adapter
             _recyclerView.adapter = _recyclerAdapter
         }
@@ -65,9 +69,13 @@ class ManageCategories : Fragment() {
         val input = _binding.editTextCategory.text.toString()
 
         lifecycleScope.launch {
-            val newCategory = Category(categoryName =input)
-            categoryViewModel.insert(newCategory)
-            _recyclerAdapter.addItem(CategoryCardViewModel(input))
+            val categories = _categoryViewModel.findAll().filter { it.categoryName == input }
+
+            if (categories.isEmpty()) {
+                val newCategory = Category(categoryName =input)
+                _categoryViewModel.insert(newCategory)
+                _recyclerAdapter.addItem(CategoryCardViewModel(input))
+            }
         }
     }
 }

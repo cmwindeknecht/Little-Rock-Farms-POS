@@ -24,4 +24,12 @@ class ProductRepository(application: Application) {
     suspend fun delete(product: Product) {
         productDao.delete(product)
     }
+
+    suspend fun deletaAll() {
+        productDao.deleteAll()
+    }
+
+    suspend fun findByCategoryId(categoryId: Int): List<Product> {
+        return productDao.findByCategoryId(categoryId)
+    }
 }

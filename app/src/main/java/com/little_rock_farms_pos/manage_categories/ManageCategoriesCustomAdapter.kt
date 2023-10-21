@@ -6,11 +6,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.little_rock_farms_pos.R
 import com.little_rock_farms_pos.manage_categories.CategoryCardViewModel
+import com.little_rock_farms_pos.persistence.models.CategoryViewModel
 
 
-class CustomAdapter(private val initialItems: MutableList<CategoryCardViewModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class ManageCategoriesCustomAdapter(private val initialItems: MutableList<CategoryCardViewModel>) : RecyclerView.Adapter<ManageCategoriesCustomAdapter.ViewHolder>() {
 
     private var items: MutableList<CategoryCardViewModel> = initialItems
+    private lateinit var categoryViewModel: CategoryViewModel
+    private lateinit var _recyclerView: RecyclerView
+    private lateinit var _recyclerAdapter: ManageCategoriesCustomAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.lrf_manage_categories_card_view, parent, false)

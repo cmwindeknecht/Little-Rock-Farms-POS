@@ -59,4 +59,5 @@ dependencies {
     testImplementation("androidx.room:room-testing:$roomVersion")
     implementation("androidx.room:room-paging:$roomVersion")
     implementation("android.arch.lifecycle:extensions:1.1.1")
+    implementation("com.google.code.gson:gson:2.8.5")
 }
