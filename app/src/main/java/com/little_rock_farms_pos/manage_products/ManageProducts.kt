@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textview.MaterialTextView
 import com.little_rock_farms_pos.databinding.LrfManageProductsBinding
 import com.little_rock_farms_pos.persistence.entities.CategoryDTO
 import com.little_rock_farms_pos.persistence.entities.Product
@@ -47,7 +49,7 @@ class ManageProducts : Fragment() {
         _binding = LrfManageProductsBinding.inflate(inflater, container, false)
         _categoryViewModel = ViewModelProviders.of(this)[CategoryViewModel::class.java]
         _productViewModel = ViewModelProviders.of(this)[ProductViewModel::class.java]
-        populateRecyclerView(this.context)
+        populateRecyclerView(this.context, null)
         populateDropDown(this.context)
 
         return binding.root
@@ -59,15 +61,43 @@ class ManageProducts : Fragment() {
         _binding.buttonAddProduct.setOnClickListener {
             addProductHandler()
         }
+        _binding.manageProductsCategoryDropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View?,
+                position: Int,
+                id: Long
+            ) {
+                val category = (selectedItemView as MaterialTextView).text.toString()
+                if (parentView != null) {
+                    populateRecyclerView(parentView.context, category)
+                }
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+                // no-op
+            }
+        }
     }
 
-    private fun populateRecyclerView(context: Context?) {
+    private fun populateRecyclerView(context: Context?, categoryToLoad: String?) {
+        var category = ""
         lifecycleScope.launch {
+            if (categoryToLoad == null) {
+                val defaultCategory = _categoryViewModel.findAll().getOrNull(0)
+                if (defaultCategory != null) {
+                    category = defaultCategory.categoryName
+                }
+            } else {
+                category = categoryToLoad
+            }
+
             _recyclerView = _binding.root.findViewById(com.little_rock_farms_pos.R.id.manage_products_recycler_view)
             _recyclerView.layoutManager = LinearLayoutManager(context)
 
             val data = ArrayList<ProductCardViewModel>()
             val categories = _categoryViewModel.findAll()
+                .filter { it.categoryName == category }
                 .map { CategoryDTO(it.categoryId!!, it.categoryName, _productViewModel.findByCategoryId(it.categoryId)) }
             categories
                 .forEach{ category -> category.products
@@ -105,7 +135,7 @@ class ManageProducts : Fragment() {
                 val category = _categoryViewModel.findAll().filter { category -> category.categoryName == categoryName }[0]
                 val productMaybe = _productViewModel.findByCategoryId(category.categoryId!!).filter { it.productName == inputProductName }
 
-                val formatter = DecimalFormat("#,###,##0.00#")
+                val formatter = DecimalFormat("##0.00#")
                 val price = formatter.format(inputProductPrice.toFloat())
                 if (productMaybe.isNotEmpty()) {
                     if (productMaybe.size == 1) {
