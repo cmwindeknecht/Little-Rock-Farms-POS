@@ -104,7 +104,7 @@ class ManageProducts : Fragment() {
                 .forEach{ category -> category.products
                     .forEach { product ->
                         run {
-                            val formatter = DecimalFormat("##0.00#")
+                            val formatter = DecimalFormat("0.00")
                             val price = formatter.format(product.productPrice.toFloat())
                             data.add(
                                 ManageProductsViewModel(
@@ -148,7 +148,7 @@ class ManageProducts : Fragment() {
                 val category = _categoryViewModel.findAll().filter { category -> category.categoryName == categoryName }[0]
                 val productMaybe = _productViewModel.findByCategoryId(category.categoryId!!).filter { it.productName == inputProductName }
 
-                val formatter = DecimalFormat("##0.00#")
+                val formatter = DecimalFormat("0.00")
                 val price = formatter.format(inputProductPrice.toFloat())
                 if (productMaybe.isNotEmpty()) {
                     if (productMaybe.size == 1) {

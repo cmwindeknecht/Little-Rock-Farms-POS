@@ -16,28 +16,31 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="120dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/cardview_dark_background">
 
             <ImageView
                 android:id="@+id/header_logo"
-                android:layout_width="120dp"
+                android:layout_width="200dp"
                 android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/little_rock_farms_logo"
-                android:maxWidth="200dp"
-                android:maxHeight="200dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/little_rock_farms_logo"
+                android:src="@drawable/lrf_logo2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/header_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/manage_products_label"
-                android:textSize="30sp"
+                android:textSize="50sp"
+                android:textColor="@color/white"
+                android:layout_marginRight="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -50,6 +53,7 @@
             android:layout_width="fill_parent"
             android:orientation="horizontal"
             android:weightSum="1.0"
+            android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@id/header"
             app:layout_constraintStart_toStartOf="parent"
             android:gravity="center_horizontal"
@@ -67,6 +71,7 @@
 
         <LinearLayout
             android:id="@+id/row2"
+            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:orientation="horizontal"
@@ -86,7 +91,8 @@
                     android:id="@+id/edit_text_product"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Add / Update Product" />
+                    android:hint="Add / Update Product"
+                    android:textSize="30sp"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
@@ -100,6 +106,7 @@
                     android:layout_height="wrap_content"
                     android:digits="0123456789."
                     android:inputType="numberDecimal"
+                    android:textSize="30sp"
                     android:hint="Price" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,7 +116,9 @@
                 android:layout_weight=".25"
                 android:layout_width="0dip"
                 android:text="@string/create"
-                android:textSize="20sp"
+                android:textSize="30sp"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/cardview_dark_background"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

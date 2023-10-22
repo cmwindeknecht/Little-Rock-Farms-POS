@@ -2,7 +2,6 @@ package com.little_rock_farms_pos.calculate_purchase
 
 import CalculatePurchasesCustomAdapter
 import android.content.Context
-import android.database.DataSetObserver
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -69,14 +68,7 @@ class CalculatePurchase : Fragment() {
             _recyclerAdapter.clearItems()
         }
 
-        _binding.buttonCalculateTotal.setOnClickListener{
-            val total = _recyclerAdapter.getItems().map{ it.subtotal }.sum()
-            val formatter = DecimalFormat("##0.00#")
-            val priceFormatted = formatter.format(total)
-            _binding.totalPrice.text = String.format("$ %s", priceFormatted.toString())
-        }
-
-        _binding.calculatePurchaseProductDropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        _binding.calculatePurchaseCategoryDropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parentView: AdapterView<*>?,
                 selectedItemView: View?,
@@ -86,6 +78,37 @@ class CalculatePurchase : Fragment() {
                 val category = (selectedItemView as MaterialTextView).text.toString()
                 lifecycleScope.launch {
                     _selected_category = _categoryViewModel.findAll().filter { it.categoryName == category }[0]
+                    _selected_category.categoryId?.let {
+                        val products = _productViewModel.findByCategoryId(_selected_category.categoryId!!)
+                        if (products.isNotEmpty()) {
+                            _selected_product = products[0]
+
+                            val productAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+                                view.context,
+                                R.layout.lrf_spinner_item_dropdown_view,
+                                products.map { it.productName }
+                            )
+                            productAdapter.setDropDownViewResource(R.layout.lrf_spinner_item_dropdown_view)
+
+                            val productSpinner = _binding.root.findViewById(R.id.calculate_purchase_product_dropdown) as Spinner
+                            productSpinner.adapter = productAdapter
+                            productAdapter.notifyDataSetChanged()
+
+                            val formatter = DecimalFormat("0.00")
+                            val priceFormatted = formatter.format(_selected_product.productPrice)
+                            _binding.calculatePurchasePriceHint.text = String.format("$ %s", priceFormatted.toString())
+                        } else {
+                            val productAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+                                view.context,
+                                R.layout.lrf_spinner_item_dropdown_view,
+                                products.map { it.productName }
+                            )
+                            val productSpinner = _binding.root.findViewById(R.id.calculate_purchase_product_dropdown) as Spinner
+                            productSpinner.adapter = productAdapter
+                            productAdapter.notifyDataSetChanged()
+                            _binding.calculatePurchasePriceHint.text = String.format("$ 0.00")
+                        }
+                    }
                 }
             }
 
@@ -101,12 +124,15 @@ class CalculatePurchase : Fragment() {
                 position: Int,
                 id: Long
             ) {
+                if (selectedItemView == null) {
+                    return
+                }
                 val product = (selectedItemView as MaterialTextView).text.toString()
                 lifecycleScope.launch {
                     _selected_product = _productViewModel.findAll().filter { it.productName == product }[0]
                 }
                 if (::_selected_product.isInitialized) {
-                    val formatter = DecimalFormat("##0.00#")
+                    val formatter = DecimalFormat("0.00")
                     val priceFormatted = formatter.format(_selected_product.productPrice)
                     _binding.calculatePurchasePriceHint.text = String.format("$ %s", priceFormatted.toString())
                 }
@@ -138,7 +164,7 @@ class CalculatePurchase : Fragment() {
                     it, R.layout.lrf_spinner_item, categories
                 )
             }
-            categoryAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            categoryAdapter?.setDropDownViewResource(R.layout.lrf_spinner_item_dropdown_view)
 
             val categorySpinner = _binding.root.findViewById(R.id.calculate_purchase_category_dropdown) as Spinner
             categorySpinner.adapter = categoryAdapter
@@ -154,7 +180,7 @@ class CalculatePurchase : Fragment() {
                         it, R.layout.lrf_spinner_item, products
                     )
                 }
-                productAdapter!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                productAdapter!!.setDropDownViewResource(R.layout.lrf_spinner_item_dropdown_view)
 
                 val productSpinner = _binding.root.findViewById(R.id.calculate_purchase_product_dropdown) as Spinner
                 productSpinner.adapter = productAdapter
@@ -162,7 +188,7 @@ class CalculatePurchase : Fragment() {
                 _recyclerAdapter.registerAdapterDataObserver(object : AdapterDataObserver() {
                     override fun onChanged() {
                         val total = _recyclerAdapter.getItems().map{ it.subtotal }.sum()
-                        val formatter = DecimalFormat("##0.00#")
+                        val formatter = DecimalFormat("0.00")
                         val priceFormatted = formatter.format(total)
                         _binding.totalPrice.text = String.format("$ %s", priceFormatted.toString())
                     }
@@ -170,9 +196,11 @@ class CalculatePurchase : Fragment() {
 
                 if (products.isNotEmpty()) {
                     val product = _productViewModel.findAll().filter { it.productName == products[0] }[0]
-                    val formatter = DecimalFormat("##0.00#")
+                    val formatter = DecimalFormat("0.00")
                     val priceFormatted = formatter.format(product.productPrice)
                     _binding.calculatePurchasePriceHint.text = String.format("$ %s", priceFormatted.toString())
+                } else {
+                    _binding.calculatePurchasePriceHint.text = String.format("$ 0.00")
                 }
             }
         }
@@ -190,7 +218,7 @@ class CalculatePurchase : Fragment() {
             return
         }
 
-        val formatter = DecimalFormat("##0.00#")
+        val formatter = DecimalFormat("0.00")
         val inputQuantityFormatted = formatter.format(inputQuantity.toFloat())
 
         lifecycleScope.launch {
@@ -215,7 +243,9 @@ class CalculatePurchase : Fragment() {
                         )
 
                         _recyclerAdapter.addItem(newPurchase)
-                        _binding.totalPrice.text = "-"
+                        val total = _recyclerAdapter.getItems().map{ it.subtotal }.sum()
+                        val priceFormatted = formatter.format(total)
+                        _binding.totalPrice.text = String.format("$ %s", priceFormatted.toString())
                     }
                 }
 
