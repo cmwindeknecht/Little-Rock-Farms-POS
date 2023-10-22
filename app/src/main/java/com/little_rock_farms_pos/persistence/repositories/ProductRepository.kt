@@ -32,4 +32,8 @@ class ProductRepository(application: Application) {
     suspend fun findByCategoryId(categoryId: Int): List<Product> {
         return productDao.findByCategoryId(categoryId)
     }
+
+    suspend fun findAll(): List<Product> {
+        return productDao.findAll()
+    }
 }

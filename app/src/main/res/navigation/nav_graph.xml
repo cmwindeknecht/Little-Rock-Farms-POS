@@ -31,9 +31,6 @@
             android:id="@+id/action_ManageInventory_to_ManageProducts"
             app:destination="@id/ManageProducts" />
         <action
-            android:id="@+id/action_ManageInventory_to_ManagePrices"
-            app:destination="@id/ManagePrices" />
-        <action
             android:id="@+id/action_ManageInventory_to_MainMenu"
             app:destination="@id/MainMenu" />
     </fragment>
@@ -55,16 +52,6 @@
 
         <action
             android:id="@+id/action_ManageProducts_to_ManageInventory"
-            app:destination="@id/ManageInventory" />
-    </fragment>
-    <fragment
-        android:id="@+id/ManagePrices"
-        android:name="com.little_rock_farms_pos.manage_prices.ManagePrices"
-        android:label="@string/manage_prices_label"
-        tools:layout="@layout/lrf_manage_prices">
-
-        <action
-            android:id="@+id/action_ManagePrices_to_ManageInventory"
             app:destination="@id/ManageInventory" />
     </fragment>
     <fragment

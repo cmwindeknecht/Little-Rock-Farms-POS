@@ -23,6 +23,8 @@
     <string name="placeholder">Placeholder</string>
     <string name="placeholder_money">$0.00</string>
     <string name="go_back">Go Back</string>
+    <string name="clear_order">Clear Order</string>
+    <string name="calculate_total">Get Total</string>
 
     <!-- Strings used for main menu -->
     <string name="little_rock_farms_logo">Little Rock Farms Logo</string>

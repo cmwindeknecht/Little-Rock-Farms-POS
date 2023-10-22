@@ -6,7 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.little_rock_farms_pos.R
-import com.little_rock_farms_pos.manage_products.ProductCardViewModel
+import com.little_rock_farms_pos.manage_products.ManageProductsViewModel
 import com.little_rock_farms_pos.persistence.AppDatabase
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -14,9 +14,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class ManageProductsCustomAdapter(private val initialItems: MutableList<ProductCardViewModel>) : RecyclerView.Adapter<ManageProductsCustomAdapter.ViewHolder>() {
+class ManageProductsCustomAdapter(private val initialItems: MutableList<ManageProductsViewModel>) : RecyclerView.Adapter<ManageProductsCustomAdapter.ViewHolder>() {
 
-    private var items: MutableList<ProductCardViewModel> = initialItems
+    private var items: MutableList<ManageProductsViewModel> = initialItems
     private lateinit var database: AppDatabase
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -49,7 +49,7 @@ class ManageProductsCustomAdapter(private val initialItems: MutableList<ProductC
         return items.size
     }
 
-    private suspend fun deleteItemOnClick(item: ProductCardViewModel) {
+    private suspend fun deleteItemOnClick(item: ManageProductsViewModel) {
         val category = database.categoryDao().findAll().filter { it.categoryName == item.category }[0]
         val product = database.productDao().findByCategoryId(categoryId = category.categoryId!!)
             .filter { it.productName == item.product }[0]
@@ -63,25 +63,25 @@ class ManageProductsCustomAdapter(private val initialItems: MutableList<ProductC
         val buttonDelete: Button = view.findViewById(R.id.button_delete_price)
     }
 
-    fun addItem(productCardViewModel: ProductCardViewModel) {
-        items.add(productCardViewModel)
-        val position = items.indexOf(productCardViewModel)
+    fun addItem(manageProductsViewModel: ManageProductsViewModel) {
+        items.add(manageProductsViewModel)
+        val position = items.indexOf(manageProductsViewModel)
         notifyItemInserted(position)
     }
 
-    fun getItems(): MutableList<ProductCardViewModel> {
+    fun getItems(): MutableList<ManageProductsViewModel> {
         return items
     }
 
-    fun updateItem(productCardViewModel: ProductCardViewModel) {
-        val position = items.indexOf(productCardViewModel)
-        items[position] = productCardViewModel
+    fun updateItem(manageProductsViewModel: ManageProductsViewModel) {
+        val position = items.indexOf(manageProductsViewModel)
+        items[position] = manageProductsViewModel
         notifyItemChanged(position)
     }
 
-    fun removeItem(productCardViewModel: ProductCardViewModel) {
-        val position = items.indexOf(productCardViewModel)
-        items.remove(productCardViewModel)
+    fun removeItem(manageProductsViewModel: ManageProductsViewModel) {
+        val position = items.indexOf(manageProductsViewModel)
+        items.remove(manageProductsViewModel)
         notifyItemRemoved(position)
     }
 }

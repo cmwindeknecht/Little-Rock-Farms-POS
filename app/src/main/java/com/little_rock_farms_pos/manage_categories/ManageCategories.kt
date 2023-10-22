@@ -57,7 +57,7 @@ class ManageCategories : Fragment() {
             _recyclerView.layoutManager = LinearLayoutManager(context)
 
             val data = _categoryViewModel.findAll().stream().map {
-                CategoryCardViewModel(it.categoryName)
+                ManageCategoriesViewModel(it.categoryName)
             }.collect(Collectors.toList())
             val adapter = ManageCategoriesCustomAdapter(data)
             _recyclerAdapter = adapter
@@ -74,7 +74,7 @@ class ManageCategories : Fragment() {
             if (categories.isEmpty()) {
                 val newCategory = Category(categoryName =input)
                 _categoryViewModel.insert(newCategory)
-                _recyclerAdapter.addItem(CategoryCardViewModel(input))
+                _recyclerAdapter.addItem(ManageCategoriesViewModel(input))
             }
         }
     }

@@ -39,9 +39,6 @@ class ManageInventory : Fragment() {
         binding.buttonManageInventoryToManageProducts.setOnClickListener {
             findNavController().navigate(R.id.action_ManageInventory_to_ManageProducts)
         }
-        binding.buttonManageInventoryToManagePrices.setOnClickListener {
-            findNavController().navigate(R.id.action_ManageInventory_to_ManagePrices)
-        }
     }
 
     override fun onDestroyView() {

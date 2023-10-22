@@ -25,4 +25,7 @@ interface ProductDao {
 
     @Query("SELECT * from product where product_category_id = :categoryId")
     suspend fun findByCategoryId(categoryId: Int): List<Product>
+
+    @Query("SELECT * from product")
+    suspend fun findAll(): List<Product>
 }

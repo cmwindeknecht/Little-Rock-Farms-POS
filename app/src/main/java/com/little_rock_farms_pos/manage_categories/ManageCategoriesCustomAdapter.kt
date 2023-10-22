@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.little_rock_farms_pos.R
-import com.little_rock_farms_pos.manage_categories.CategoryCardViewModel
+import com.little_rock_farms_pos.manage_categories.ManageCategoriesViewModel
 import com.little_rock_farms_pos.persistence.models.CategoryViewModel
 
 
-class ManageCategoriesCustomAdapter(private val initialItems: MutableList<CategoryCardViewModel>) : RecyclerView.Adapter<ManageCategoriesCustomAdapter.ViewHolder>() {
+class ManageCategoriesCustomAdapter(private val initialItems: MutableList<ManageCategoriesViewModel>) : RecyclerView.Adapter<ManageCategoriesCustomAdapter.ViewHolder>() {
 
-    private var items: MutableList<CategoryCardViewModel> = initialItems
+    private var items: MutableList<ManageCategoriesViewModel> = initialItems
     private lateinit var categoryViewModel: CategoryViewModel
     private lateinit var _recyclerView: RecyclerView
     private lateinit var _recyclerAdapter: ManageCategoriesCustomAdapter
@@ -35,20 +35,20 @@ class ManageCategoriesCustomAdapter(private val initialItems: MutableList<Catego
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateEntireListOfItems(categoryCardViewModels: MutableList<CategoryCardViewModel>) {
-        items = categoryCardViewModels
+    fun updateEntireListOfItems(manageCategoriesViewModels: MutableList<ManageCategoriesViewModel>) {
+        items = manageCategoriesViewModels
         notifyDataSetChanged()
     }
 
-    fun addItem(categoryCardViewModel: CategoryCardViewModel) {
-        items.add(categoryCardViewModel)
-        val position = items.indexOf(categoryCardViewModel)
+    fun addItem(manageCategoriesViewModel: ManageCategoriesViewModel) {
+        items.add(manageCategoriesViewModel)
+        val position = items.indexOf(manageCategoriesViewModel)
         notifyItemInserted(position)
     }
 
-    fun removeItem(categoryCardViewModel: CategoryCardViewModel) {
-        val position = items.indexOf(categoryCardViewModel)
-        items.remove(categoryCardViewModel)
+    fun removeItem(manageCategoriesViewModel: ManageCategoriesViewModel) {
+        val position = items.indexOf(manageCategoriesViewModel)
+        items.remove(manageCategoriesViewModel)
         notifyItemRemoved(position)
     }
 }

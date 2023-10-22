@@ -30,4 +30,8 @@ class ProductViewModel(app: Application) : AndroidViewModel(app) {
     suspend fun findByCategoryId(categoryId: Int): List<Product> {
         return repository.findByCategoryId(categoryId)
     }
+
+    suspend fun findAll(): List<Product> {
+        return repository.findAll()
+    }
 }

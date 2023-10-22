@@ -16,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
+import com.little_rock_farms_pos.R
 import com.little_rock_farms_pos.databinding.LrfManageProductsBinding
 import com.little_rock_farms_pos.persistence.entities.CategoryDTO
 import com.little_rock_farms_pos.persistence.entities.Product
@@ -95,13 +96,25 @@ class ManageProducts : Fragment() {
             _recyclerView = _binding.root.findViewById(com.little_rock_farms_pos.R.id.manage_products_recycler_view)
             _recyclerView.layoutManager = LinearLayoutManager(context)
 
-            val data = ArrayList<ProductCardViewModel>()
+            val data = ArrayList<ManageProductsViewModel>()
             val categories = _categoryViewModel.findAll()
                 .filter { it.categoryName == category }
                 .map { CategoryDTO(it.categoryId!!, it.categoryName, _productViewModel.findByCategoryId(it.categoryId)) }
             categories
                 .forEach{ category -> category.products
-                    .forEach { product -> data.add(ProductCardViewModel(category.categoryName, product.productName, product.productPrice.toString())) }
+                    .forEach { product ->
+                        run {
+                            val formatter = DecimalFormat("##0.00#")
+                            val price = formatter.format(product.productPrice.toFloat())
+                            data.add(
+                                ManageProductsViewModel(
+                                    category.categoryName,
+                                    product.productName,
+                                    String.format("$ %s", price)
+                                )
+                            )
+                        }
+                    }
                 }
             val adapter = ManageProductsCustomAdapter(data)
             _recyclerAdapter = adapter
@@ -115,12 +128,12 @@ class ManageProducts : Fragment() {
 
             val adapter: ArrayAdapter<String>? = context?.let {
                 ArrayAdapter<String>(
-                    it, android.R.layout.simple_spinner_item, categories
+                    it, R.layout.lrf_spinner_item, categories
                 )
             }
 
-            adapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            val sItems = _binding.root.findViewById(com.little_rock_farms_pos.R.id.manage_products_category_dropdown) as Spinner
+            adapter?.setDropDownViewResource(R.layout.lrf_spinner_item_dropdown_view)
+            val sItems = _binding.root.findViewById(R.id.manage_products_category_dropdown) as Spinner
             sItems.adapter = adapter
         }
     }
@@ -149,7 +162,7 @@ class ManageProducts : Fragment() {
                 } else {
                     val newProduct = Product(productName = inputProductName, productPrice = price.toDouble(), productCategoryId = category.categoryId)
                     _productViewModel.insert(newProduct)
-                    _recyclerAdapter.addItem(ProductCardViewModel(category=categoryName, product = newProduct.productName,  price = String.format("$ %s", price)))
+                    _recyclerAdapter.addItem(ManageProductsViewModel(category=categoryName, product = newProduct.productName,  price = String.format("$ %s", price)))
                 }
             } catch (e: Exception) {
                 Log.e("manage_products", "Failed to add product", e)

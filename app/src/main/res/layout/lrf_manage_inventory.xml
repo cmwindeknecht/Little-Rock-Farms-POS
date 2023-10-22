@@ -100,17 +100,6 @@
             app:layout_constraintStart_toStartOf="parent"
             android:gravity="center">
 
-            <Button
-                android:id="@+id/button_manage_inventory_to_manage_prices"
-                android:layout_height="wrap_content"
-                android:layout_weight=".75"
-                android:layout_width="0dip"
-                android:text="@string/manage_prices_label"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

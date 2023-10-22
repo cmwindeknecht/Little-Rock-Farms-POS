@@ -86,7 +86,7 @@
                     android:id="@+id/edit_text_product"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="New Product" />
+                    android:hint="Add / Update Product" />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
